@@ -233,4 +233,4 @@ When reporting a problem, please include your **watch model**, **Zepp app versio
 
 ## Version
 
-Current app version: **1.0.0** (see `app.json` in the private source repo).
+Current app version: **1.0.0**.
