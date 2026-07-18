@@ -15,6 +15,7 @@ A Zepp OS smartwatch app for reusable daily checklists — pack for a swim, gear
 - [Getting started](#getting-started)
 - [Phone app (Zepp companion settings)](#phone-app-zepp-companion-settings)
 - [Watch app](#watch-app)
+- [Watch widget](#watch-widget)
 - [How sync works](#how-sync-works)
 - [Free trial vs full version](#free-trial-vs-full-version)
 - [Supported devices](#supported-devices)
@@ -43,6 +44,7 @@ Typical uses:
 | Reset all items in a list | | ✓ |
 | Adjust row height, reopen-on-wake | | ✓ |
 | Keep screen on while packing | | ✓ |
+| See recently used checklists on a widget | | ✓ (supported devices) |
 
 On first install, the app includes two **sample checklists** (*Swimming pool* and *Bike ride*) so you can try it immediately.
 
@@ -54,6 +56,7 @@ On first install, the app includes two **sample checklists** (*Swimming pool* an
 2. Open the app on your watch and wait for the initial sync with your phone (you may briefly see **Syncing…**).
 3. On your phone, open the Zepp app → **Device** → **App settings** → **My Checklists** to edit lists.
 4. Changes made on the phone sync to the watch when the devices are connected.
+5. Optional: on supported watches, add the **My Checklists** widget under **Settings → Preferences → Widget** for quick access to recently used lists.
 
 ---
 
@@ -93,14 +96,14 @@ The phone side is where you **build and maintain** your checklists. Open it from
 
 ### Main screen — checklist list
 
-When you open My Checklists on the watch, you see all your checklists as tappable rows.
+When you open My Checklists on the watch, you see all your checklists as tappable rows. Each row shows the checklist name and progress as **done / total** (for example `Swimming pool  3/8`).
 
 <img src="docs/screenshots/03-watch-main-checklists.png" alt="Watch main screen — checklist list (Stay on off)" width="240" />
 
 | Control | Description |
 |---------|-------------|
 | **Stay on** (top bar) | Toggle to keep the screen awake while you pack. Blue = on, gray = off. Useful when checking many items in a row. |
-| **Checklist buttons** | Tap a checklist to open its items. |
+| **Checklist buttons** | Tap a checklist to open its items. The label includes progress (`name  done/total`). |
 | **Settings** | Opens watch-specific display and purchase options. |
 
 **Stay on enabled** (blue top bar):
@@ -156,10 +159,38 @@ Tap **Back** to save layout changes and return to the main screen.
 
 ---
 
+## Watch widget
+
+On devices that support **SecondaryWidget**, you can add **My Checklists** as a full-screen widget (swipe horizontally from the watch face to browse widgets in either direction).
+
+<img src="docs/screenshots/12-watch-widget.png" alt="Watch widget — recently used checklists" width="240" />
+
+| Control | Description |
+|---------|-------------|
+| **My Checklists** (top bar) | Opens the main checklist list in the app. |
+| **Recently used checklists** | Section label above the rows. |
+| **Checklist rows** | Shows as many recently used checklists as fit on the screen. Each row uses the same `name  done/total` progress label as the main app. Tap a row to open that checklist’s items. |
+
+**How “recently used” is decided**
+
+- Checking or unchecking an item counts as use.
+- **Deselect all** also counts as use.
+- Lists are sorted by most recent use. Lists you have never used yet keep their normal app order as a fallback.
+
+**Navigation from the widget**
+
+- Tap a checklist → opens the items screen.
+- From that items screen, **Back**, the system **back gesture**, and the hardware **back** key (where available) all go to the main checklist list — not back to the widget — so you can open another list without leaving the app.
+- Tap **My Checklists** on the widget → opens the main checklist list directly.
+
+> **Note:** Not every Amazfit model supports SecondaryWidget. If you do not see My Checklists in **Settings → Preferences → Widget**, your watch does not expose this surface.
+
+---
+
 ## How sync works
 
 - **Phone → watch:** Checklist names, item names, and order are edited on the phone and pushed to the watch over Bluetooth when connected.
-- **Watch-only data:** Which items are checked off (**red** vs **gray**) is stored on the watch. When lists are updated from the phone, your checked states for **unchanged item names** are preserved.
+- **Watch-only data:** Which items are checked off (**red** vs **gray**) is stored on the watch. When lists are updated from the phone, your checked states for **unchanged item names** are preserved. Recent-use order for the widget is also stored on the watch.
 - **Offline watch:** Previously synced lists remain available on the watch; new edits from the phone apply the next time devices connect.
 - **Renamed or removed items** on the phone may reset the checked state for those entries on the next sync.
 
