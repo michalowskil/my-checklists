@@ -65,8 +65,7 @@ On first install, the app includes two **sample checklists** (*Swimming pool* an
 
 The phone side is where you **build and maintain** your checklists. Open it from the Zepp app while your watch is paired.
 
-<img src="docs/screenshots/02-phone-settings-overview-top.jpg" alt="Phone settings — checklist editor" width="320" />
-<img src="docs/screenshots/02-phone-settings-overview-bottom.jpg" alt="Phone settings — checklist editor" width="320" />
+<img src="docs/screenshots/02-phone-settings-overview-top.jpg" alt="Phone settings — checklist editor (top)" width="320" /> <img src="docs/screenshots/02-phone-settings-overview-bottom.jpg" alt="Phone settings — checklist editor (bottom)" width="320" />
 
 ### Checklists
 
@@ -167,8 +166,7 @@ By default, checklists keep the order from the phone. If **Done checklists below
 Tap a checklist to see its items. This is where you use the list day to day.
 
 
-<img src="docs/screenshots/06-watch-deselect-all.png" alt="Watch items screen — top with Back button" width="240" />
-<img src="docs/screenshots/05-watch-items-active.png" alt="Watch items screen — bottom with Deselect all" width="240" />
+<img src="docs/screenshots/06-watch-deselect-all.png" alt="Watch items screen — top with Back button" width="240" /> <img src="docs/screenshots/05-watch-items-active.png" alt="Watch items screen — bottom with Deselect all" width="240" />
 
 | Control | Description |
 |---------|-------------|
@@ -188,9 +186,7 @@ By default, items keep the order from the phone. If **Done items below** is enab
 
 Open **Settings** from the main watch screen.
 
-<img src="docs/screenshots/07-watch-settings-top.png" alt="Watch settings — layout controls" width="240" />
-<img src="docs/screenshots/07-watch-settings-middle.png" alt="Watch settings — layout controls" width="240" />
-<img src="docs/screenshots/07-watch-settings-bottom.png" alt="Watch settings — reopen on wake, done items / checklists below, and Full version unlocked" width="240" />
+<img src="docs/screenshots/07-watch-settings-top.png" alt="Watch settings — layout controls (top)" width="240" /> <img src="docs/screenshots/07-watch-settings-middle.png" alt="Watch settings — layout controls (middle)" width="240" /> <img src="docs/screenshots/07-watch-settings-bottom.png" alt="Watch settings — reopen on wake, done items / checklists below, and Full version unlocked" width="240" />
 
 | Setting | Description |
 |---------|-------------|
