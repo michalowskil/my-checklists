@@ -39,10 +39,11 @@ Typical uses:
 |------|------------------|-------|
 | Create, rename, delete checklists | ✓ | |
 | Add, edit, delete, reorder items | ✓ | |
+| Export / import checklists (JSON or CSV) | ✓ | |
 | Reorder checklists | ✓ | |
 | Check / uncheck items | | ✓ |
 | Reset all items in a list | | ✓ |
-| Adjust row height, reopen-on-wake | | ✓ |
+| Adjust row height, reopen-on-wake, done-items / done-checklists below | | ✓ |
 | Keep screen on while packing | | ✓ |
 | See recently used checklists on a widget | | ✓ (supported devices) |
 
@@ -64,7 +65,8 @@ On first install, the app includes two **sample checklists** (*Swimming pool* an
 
 The phone side is where you **build and maintain** your checklists. Open it from the Zepp app while your watch is paired.
 
-<img src="docs/screenshots/02-phone-settings-overview.jpg" alt="Phone settings — checklist editor" width="320" />
+<img src="docs/screenshots/02-phone-settings-overview-top.jpg" alt="Phone settings — checklist editor" width="320" />
+<img src="docs/screenshots/02-phone-settings-overview-bottom.jpg" alt="Phone settings — checklist editor" width="320" />
 
 ### Checklists
 
@@ -81,6 +83,45 @@ The phone side is where you **build and maintain** your checklists. Open it from
 - **Delete an item** — tap the **🗑** button; confirm or cancel.
 - **Reorder items** — use **↑** / **↓** (shown when a list has two or more items).
 - **Duplicate item names** within the same checklist are not allowed.
+
+### Backup (export / import)
+
+Use the format selector next to **Export** / **Import** to choose **JSON** or **CSV** (JSON is selected by default). Export and import always use the selected format. Backups contain checklist and item **names only** — checked/unchecked state lives on the watch and is not included.
+
+- **Export** — opens a backup of all checklists; select all, copy, and save it somewhere safe.
+- **Import** — paste a previously saved backup and tap **OK**. Existing checklists/items are merged (duplicates are skipped; new lists and items are added).
+
+**JSON** example:
+
+```json
+[
+  {
+    "name": "Swimming pool",
+    "values": [
+      { "name": "Swimsuit" },
+      { "name": "Towel" },
+      { "name": "Goggles" }
+    ]
+  },
+  {
+    "name": "Bike ride",
+    "values": [
+      { "name": "Helmet" },
+      { "name": "Water bottle" },
+      { "name": "Snacks" }
+    ]
+  }
+]
+```
+
+**CSV** — one line per checklist, no header. First field is the checklist name; the rest are items:
+
+```csv
+Swimming pool, Swimsuit, Towel, Goggles
+Bike ride, Helmet, Water bottle, Snacks
+```
+
+CSV is handy for creating lists by hand (e.g. in a notes app) and importing them.
 
 ### Validation and messages
 
@@ -106,6 +147,8 @@ When you open My Checklists on the watch, you see all your checklists as tappabl
 | **Checklist buttons** | Tap a checklist to open its items. The label includes progress (`name  done/total`). |
 | **Settings** | Opens watch-specific display and purchase options. |
 
+By default, checklists keep the order from the phone. If **Done checklists below** is enabled in watch Settings, fully completed lists appear under incomplete ones. The widget is unchanged (still recent-use order).
+
 **Stay on enabled** (blue top bar):
 
 <img src="docs/screenshots/08-watch-stay-on.png" alt="Watch main screen — Stay on enabled" width="240" />
@@ -125,7 +168,6 @@ Tap a checklist to see its items. This is where you use the list day to day.
 
 
 <img src="docs/screenshots/06-watch-deselect-all.png" alt="Watch items screen — top with Back button" width="240" />
-
 <img src="docs/screenshots/05-watch-items-active.png" alt="Watch items screen — bottom with Deselect all" width="240" />
 
 | Control | Description |
@@ -133,6 +175,8 @@ Tap a checklist to see its items. This is where you use the list day to day.
 | **Back** (top) | Return to the checklist list. |
 | **Item rows** | Tap an item to toggle it between **to pack** (red) and **done** (gray). |
 | **Deselect all** (bottom) | Resets every item in this list back to **to pack** (red) so you can reuse the list next time. |
+
+By default, items keep the order from the phone. If **Done items below** is enabled in watch Settings, **done** (gray) items always appear under **to pack** (red) ones while you check things off — phone order is unchanged.
 
 **Empty list:** If a checklist has no items, the watch shows *"No items yet."* — add items on the phone.
 
@@ -145,14 +189,16 @@ Tap a checklist to see its items. This is where you use the list day to day.
 Open **Settings** from the main watch screen.
 
 <img src="docs/screenshots/07-watch-settings-top.png" alt="Watch settings — layout controls" width="240" />
-
-<img src="docs/screenshots/07-watch-settings-bottom.png" alt="Watch settings — reopen on wake and Full version unlocked" width="240" />
+<img src="docs/screenshots/07-watch-settings-middle.png" alt="Watch settings — layout controls" width="240" />
+<img src="docs/screenshots/07-watch-settings-bottom.png" alt="Watch settings — reopen on wake, done items / checklists below, and Full version unlocked" width="240" />
 
 | Setting | Description |
 |---------|-------------|
 | **Checklist height** | Row height for checklist names on the main screen (48–96 px, step 4). Adjust if names are clipped or you want more lists on screen. |
 | **Item height** | Row height for items inside a checklist (48–96 px, step 4). |
 | **Reopen on wake** | **On** (default): when the watch screen turns back on, the app reopens where you left off. **Off**: the app closes normally when the screen sleeps. Works whether you wake the screen with a button, touch, or wrist gesture. |
+| **Done items below** | **Off** (default): items stay in phone order. **On**: **done** (gray) items are always shown below **to pack** (red) ones on the item screen. Only affects display on the watch; checklist order on the phone is unchanged. |
+| **Done checklists below** | **Off** (default): checklists stay in phone order on the main screen. **On**: fully completed lists (`done/total` where done equals total) appear below incomplete ones. Empty lists stay with incomplete. Does not change phone order or the widget’s recent-use sorting. |
 | **Buy full version** | Starts the in-app purchase flow (KiezelPay). Hidden once licensed; replaced by **Full version unlocked**. |
 
 Tap **Back** to save layout changes and return to the main screen.
@@ -206,7 +252,7 @@ My Checklists uses a **90-day free trial**, then a **one-time purchase of $2.00*
 | Items per checklist | Unlimited | Unlimited (existing lists) | Unlimited |
 | All watch features | ✓ | ✓ (existing lists on watch) | ✓ |
 
-To upgrade, open **Settings** on the watch and tap **Buy full version** (any time during or after the trial). Payment is handled via **KiezelPay**; after purchase the settings screen shows **Full version unlocked**.
+To upgrade, open **Settings** on the watch and tap **Buy full version** (any time during or after the trial).
 
 <img src="docs/screenshots/10-watch-buy-full-version.png" alt="Watch settings — Buy full version" width="240" />
 
@@ -215,6 +261,8 @@ KiezelPay then shows a payment code — enter it at [kzl.io/code](https://kzl.io
 <img src="docs/screenshots/11-watch-kpay-payment-code.png" alt="Watch — KiezelPay payment code" width="240" />
 
 If you already purchased, use [kzl.io/unlock](https://kzl.io/unlock) instead.
+
+Payment is handled via **KiezelPay**; after purchase the settings screen shows **Full version unlocked**.
 
 ---
 
