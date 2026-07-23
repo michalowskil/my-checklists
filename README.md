@@ -248,6 +248,8 @@ My Checklists uses a **90-day free trial**, then a **one-time purchase of $2.00*
 | Items per checklist | Unlimited | Unlimited (existing lists) | Unlimited |
 | All watch features | ✓ | ✓ (existing lists on watch) | ✓ |
 
+The full version has **no app-enforced checklist cap**. In practice, how many lists feel smooth depends on the watch’s memory and performance — very large libraries (many lists and items) may make navigation or sync slower on lower-powered models.
+
 To upgrade, open **Settings** on the watch and tap **Buy full version** (any time during or after the trial).
 
 <img src="docs/screenshots/10-watch-buy-full-version.png" alt="Watch settings — Buy full version" width="240" />
