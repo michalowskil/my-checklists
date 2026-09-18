@@ -40,10 +40,12 @@ Typical uses:
 | Create, rename, delete checklists | ✓ | |
 | Add, edit, delete, reorder items | ✓ | |
 | Export / import checklists (JSON or CSV) | ✓ | |
+| Choose colors for items and checklists | ✓ | |
+| Set a daily reset time per checklist | ✓ | |
 | Reorder checklists | ✓ | |
 | Check / uncheck items | | ✓ |
 | Reset all items in a list | | ✓ |
-| Adjust row height, reopen-on-wake, done-items / done-checklists below | | ✓ |
+| Adjust row height, font size, reopen-on-wake, done-items / done-checklists below | | ✓ |
 | Keep screen on while packing | | ✓ |
 | See recently used checklists on a widget | | ✓ (supported devices) |
 
@@ -65,7 +67,7 @@ On first install, the app includes two **sample checklists** (*Swimming pool* an
 
 The phone side is where you **build and maintain** your checklists. Open it from the Zepp app while your watch is paired.
 
-<img src="docs/screenshots/02-phone-settings-overview-top.jpg" alt="Phone settings — checklist editor (top)" width="320" /> <img src="docs/screenshots/02-phone-settings-overview-bottom.jpg" alt="Phone settings — checklist editor (bottom)" width="320" />
+<img src="docs/screenshots/02-phone-settings-overview-top.png" alt="Phone settings — checklist editor (top)" width="320" /> <img src="docs/screenshots/02-phone-settings-overview-bottom.png" alt="Phone settings — checklist editor (bottom)" width="320" />
 
 ### Checklists
 
@@ -73,7 +75,19 @@ The phone side is where you **build and maintain** your checklists. Open it from
 - **Rename a checklist** — tap the checklist name and edit it (max **200 characters**).
 - **Delete a checklist** — tap the **✖** button next to the name; confirm with **Delete** or cancel.
 - **Reorder checklists** — use the **↑** / **↓** buttons (shown when you have two or more lists).
+- **Daily reset** — under **Add item**, choose **Off** (default) or a 24-hour time (`HH` then `MM`). After that time, the next time you open the watch app or the widget, every item in that list is set back to **to pack**. Use this for lists you repeat every day (for example supplements). If the watch is asleep at the chosen time, the reset happens when you next open the app or widget.
 - **Duplicate names** are not allowed (case-insensitive).
+
+### Colors
+
+At the top of the phone settings, pick what you want to color from the dropdown, then tap a square. The dropdown always has one of these selected:
+
+- **Checked items** — color for done items (default forest).
+- **Unchecked items** — color for items still to pack (default gray).
+- **Done checklists** — color for fully completed lists on the watch (default gray).
+- **Undone checklists** — color for lists that still have items to pack, including empty lists (default blue).
+
+The selected color has a dark border. These four colors apply to every checklist. Keep the watch app open to see changes immediately after sync.
 
 ### Items
 
@@ -85,32 +99,42 @@ The phone side is where you **build and maintain** your checklists. Open it from
 
 ### Backup (export / import)
 
-Use the format selector next to **Export** / **Import** to choose **JSON** or **CSV** (JSON is selected by default). Export and import always use the selected format. Backups contain checklist and item **names only** — checked/unchecked state lives on the watch and is not included.
+Use the format selector next to **Export** / **Import** to choose **JSON** or **CSV** (JSON is selected by default). Export and import always use the selected format. **JSON** backups include checklist names, item names, daily reset times, and the four watch colors. **CSV** is names only. Checked/unchecked item state lives on the watch and is not included.
 
 - **Export** — opens a backup of all checklists; select all, copy, and save it somewhere safe.
-- **Import** — paste a previously saved backup and tap **OK**. Existing checklists/items are merged (duplicates are skipped; new lists and items are added).
+- **Import** — paste a previously saved backup and tap **OK**. Existing checklists/items are merged (duplicates are skipped; new lists and items are added). Backups from version 1.0 still import; your current colors stay if the file has none. Colors and daily reset times are restored when the backup includes them.
 
 **JSON** example:
 
 ```json
-[
-  {
-    "name": "Swimming pool",
-    "values": [
-      { "name": "Swimsuit" },
-      { "name": "Towel" },
-      { "name": "Goggles" }
-    ]
-  },
-  {
-    "name": "Bike ride",
-    "values": [
-      { "name": "Helmet" },
-      { "name": "Water bottle" },
-      { "name": "Snacks" }
-    ]
+{
+  "checklists": [
+    {
+      "name": "Swimming pool",
+      "resetTime": "",
+      "values": [
+        { "name": "Swimsuit" },
+        { "name": "Towel" },
+        { "name": "Goggles" }
+      ]
+    },
+    {
+      "name": "Bike ride",
+      "resetTime": "03:00",
+      "values": [
+        { "name": "Helmet" },
+        { "name": "Water bottle" },
+        { "name": "Snacks" }
+      ]
+    }
+  ],
+  "itemColors": {
+    "unchecked": "#5b5b5b",
+    "checked": "#1e8449",
+    "undoneChecklists": "#2986cc",
+    "doneChecklists": "#5b5b5b"
   }
-]
+}
 ```
 
 **CSV** — one line per checklist, no header. First field is the checklist name; the rest are items:
@@ -125,10 +149,10 @@ CSV is handy for creating lists by hand (e.g. in a notes app) and importing them
 ### Validation and messages
 
 - Empty names or names longer than 200 characters are rejected with an error message.
-- In the **free trial** (first **90 days**), adding a third checklist shows:  
+- In the **free trial** (first **7 days**), adding a third checklist shows:  
   *"You already have 2 checklists. That is the maximum during the free trial. Open Settings in the watch app and tap Buy full version for unlimited checklists."*
-- After the **90-day trial ends**, adding checklists is blocked until you purchase; the message is:  
-  *"Your 3-month trial has ended. Open Settings in the watch app and tap Buy full version to keep using the app with unlimited checklists."*
+- After the **7-day trial ends**, adding checklists is blocked until you purchase; the message is:  
+  *"Your 7-day trial has ended. Open Settings on the watch app and tap Buy full version to add or edit checklists and items."*
 
 ---
 
@@ -143,7 +167,7 @@ When you open My Checklists on the watch, you see all your checklists as tappabl
 | Control | Description |
 |---------|-------------|
 | **Stay on** (top bar) | Toggle to keep the screen awake while you pack. Blue = on, gray = off. Useful when checking many items in a row. |
-| **Checklist buttons** | Tap a checklist to open its items. The label includes progress (`name  done/total`). |
+| **Checklist buttons** | Tap a checklist to open its items. The label includes progress (`name  done/total`). Lists with a **Daily reset** time show `0/total` after that time the next time this screen (or the widget) is opened. |
 | **Settings** | Opens watch-specific display and purchase options. |
 
 By default, checklists keep the order from the phone. If **Done checklists below** is enabled in watch Settings, fully completed lists appear under incomplete ones. The widget is unchanged (still recent-use order).
@@ -171,10 +195,11 @@ Tap a checklist to see its items. This is where you use the list day to day.
 | Control | Description |
 |---------|-------------|
 | **Back** (top) | Return to the checklist list. |
-| **Item rows** | Tap an item to toggle it between **to pack** (red) and **done** (gray). |
-| **Deselect all** (bottom) | Resets every item in this list back to **to pack** (red) so you can reuse the list next time. |
+| **Item rows** | Tap an item to toggle it between **to pack** (default gray) and **done** (default forest). Colors can be changed in the Zepp app on your phone. |
+| **Reset at HH:MM** | Shown under **Back** when that list has a daily reset time. Hidden when reset is **Off**. |
+| **Deselect all** (bottom) | Resets every item in this list back to **to pack** so you can reuse the list next time. Lists with **Daily reset** do this automatically after the chosen time. |
 
-By default, items keep the order from the phone. If **Done items below** is enabled in watch Settings, **done** (gray) items always appear under **to pack** (red) ones while you check things off — phone order is unchanged.
+By default, items keep the order from the phone. If **Done items below** is enabled in watch Settings, **done** items always appear under **to pack** ones while you check things off — phone order is unchanged.
 
 **Empty list:** If a checklist has no items, the watch shows *"No items yet."* — add items on the phone.
 
@@ -190,11 +215,13 @@ Open **Settings** from the main watch screen.
 
 | Setting | Description |
 |---------|-------------|
-| **Checklist height** | Row height for checklist names on the main screen (48–96 px, step 4). Adjust if names are clipped or you want more lists on screen. |
-| **Item height** | Row height for items inside a checklist (48–96 px, step 4). |
+| **Checklist height** | Row height for checklist names on the main screen (48–96, step 4). Adjust if names are clipped or you want more lists on screen. |
+| **Item height** | Row height for items inside a checklist (48–96, step 4). |
+| **Font size** | Text size for checklist names and item names (24–48, step 2). **Stay on**, **Back**, **Settings**, and the widget title stay the same size. |
 | **Reopen on wake** | **On** (default): when the watch screen turns back on, the app reopens where you left off. **Off**: the app closes normally when the screen sleeps. Works whether you wake the screen with a button, touch, or wrist gesture. |
-| **Done items below** | **Off** (default): items stay in phone order. **On**: **done** (gray) items are always shown below **to pack** (red) ones on the item screen. Only affects display on the watch; checklist order on the phone is unchanged. |
+| **Done items below** | **Off** (default): items stay in phone order. **On**: **done** items are always shown below **to pack** ones on the item screen. Only affects display on the watch; checklist order on the phone is unchanged. |
 | **Done checklists below** | **Off** (default): checklists stay in phone order on the main screen. **On**: fully completed lists (`done/total` where done equals total) appear below incomplete ones. Empty lists stay with incomplete. Does not change phone order or the widget’s recent-use sorting. |
+| **Force sync** | Shows **Syncing…**, pulls the latest lists and colors from the phone, then returns to the main list. Use this if the watch does not show what you just edited on the phone. |
 | **Buy full version** | Starts the in-app purchase flow (KiezelPay). Hidden once licensed; replaced by **Full version unlocked**. |
 
 Tap **Back** to save layout changes and return to the main screen.
@@ -203,7 +230,7 @@ Tap **Back** to save layout changes and return to the main screen.
 
 ## Watch widget
 
-On devices that support **SecondaryWidget**, you can add **My Checklists** as a full-screen widget (swipe horizontally from the watch face to browse widgets in either direction).
+On devices that support widgets, you can add **My Checklists** as a full-screen widget (swipe horizontally from the watch face to browse widgets in either direction).
 
 <img src="docs/screenshots/12-watch-widget.png" alt="Watch widget — recently used checklists" width="240" />
 
@@ -211,7 +238,7 @@ On devices that support **SecondaryWidget**, you can add **My Checklists** as a 
 |---------|-------------|
 | **My Checklists** (top bar) | Opens the main checklist list in the app. |
 | **Recently used checklists** | Section label above the rows. |
-| **Checklist rows** | Shows as many recently used checklists as fit on the screen. Each row uses the same `name  done/total` progress label as the main app. Tap a row to open that checklist’s items. |
+| **Checklist rows** | Shows as many recently used checklists as fit on the screen. Each row uses the same `name  done/total` progress label as the main app. Tap a row to open that checklist’s items. Daily reset is applied when the widget is shown or swiped onto, so the counts match the app. |
 
 **How “recently used” is decided**
 
@@ -221,18 +248,18 @@ On devices that support **SecondaryWidget**, you can add **My Checklists** as a 
 
 **Navigation from the widget**
 
-- Tap a checklist → opens the items screen.
-- From that items screen, **Back**, the system **back gesture**, and the hardware **back** key (where available) all go to the main checklist list — not back to the widget — so you can open another list without leaving the app.
+- Tap a checklist → opens that list’s items.
+- From those items, **Back**, the swipe-back gesture, and the hardware **back** key (where available) all go to the main checklist list — not back to the widget — so you can open another list without leaving the app.
 - Tap **My Checklists** on the widget → opens the main checklist list directly.
 
-> **Note:** Not every Amazfit model supports SecondaryWidget. If you do not see My Checklists in **Settings → Preferences → Widget**, your watch does not expose this surface.
+> **Note:** Not every Amazfit model supports this widget. If you do not see My Checklists in **Settings → Preferences → Widget**, your watch does not offer it.
 
 ---
 
 ## How sync works
 
-- **Phone → watch:** Checklist names, item names, and order are edited on the phone and pushed to the watch over Bluetooth when connected.
-- **Watch-only data:** Which items are checked off (**red** vs **gray**) is stored on the watch. When lists are updated from the phone, your checked states for **unchanged item names** are preserved. Recent-use order for the widget is also stored on the watch.
+- **Phone → watch:** Checklist names, item names, item/checklist colors, daily reset times, and order are edited on the phone and pushed to the watch over Bluetooth when connected.
+- **Watch-only data:** Which items are checked off is stored on the watch. When lists are updated from the phone, your checked states for **unchanged item names** are preserved. Recent-use order for the widget is also stored on the watch. A phone sync does not run the same daily reset twice on the same day.
 - **Offline watch:** Previously synced lists remain available on the watch; new edits from the phone apply the next time devices connect.
 - **Renamed or removed items** on the phone may reset the checked state for those entries on the next sync.
 
@@ -240,9 +267,9 @@ On devices that support **SecondaryWidget**, you can add **My Checklists** as a 
 
 ## Free trial vs full version
 
-My Checklists uses a **90-day free trial**, then a **one-time purchase of $2.00** for the full version.
+My Checklists uses a **7-day free trial**, then a **one-time purchase of $2.00** for the full version.
 
-| | During 90-day trial | After trial (not purchased) | Full version (**$2.00**) |
+| | During 7-day trial | After trial (not purchased) | Full version (**$2.00**) |
 |---|---------------------|----------------------------|--------------------------|
 | Checklists | Up to **2** | Must purchase to add lists | **Unlimited** |
 | Items per checklist | Unlimited | Unlimited (existing lists) | Unlimited |
@@ -310,4 +337,13 @@ When reporting a problem, please include your **watch model**, **Zepp app versio
 
 ## Version
 
-Current app version: **1.0.0**.
+Current app version: **2.0.0**.
+
+**What’s new in 2.0.0**
+
+- **Colors** — choose colors for checked/unchecked items and done/undone lists in the Zepp app.
+- **Daily reset** — set a time per list so it returns to **to pack** the next time you open the app or widget after that time.
+- **Font size** — change checklist and item text size in watch Settings.
+- **Force sync** — pull the latest lists and colors from the phone if the watch is behind.
+- Opening a list and going back is faster.
+- The free trial is **7 days** (was 90 days).
